@@ -36,4 +36,17 @@ public class ProdutosController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> editarProduto(@PathVariable Long id, @RequestBody Produto produtoAtualizado){
+        for(Produto p : produtos){
+            if (p.getId().equals(id)){
+                p.setPreco(produtoAtualizado.getPreco());
+                p.setId(produtoAtualizado.getId());
+                p.setNome(produtoAtualizado.getNome());
+                return ResponseEntity.ok("Produto atualizado com sucesso!");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
+    }
+
 }
